@@ -1,0 +1,29 @@
+.todoListContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  transition: all 1.4s;
+}
+.todoList {
+  min-width: 400px;
+}
+.todoItem {
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin-bottom: 4px;
+  padding: 8px 20px;
+  background-color: rgba(156, 156, 156, 0.2);
+  font-size: 1.2rem;
+  align-items: center;
+  transition: all 1.4s;
+}
+.caption {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 7px;
+}
+.completed {
+  text-decoration: line-through;
+  background-color: rgba(156, 156, 156, 0.7);
+  transition: all 2s;
+}
