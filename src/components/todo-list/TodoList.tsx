@@ -3,6 +3,7 @@ import classes from './TodoList.module.css';
 
 export interface TodoListProps {
   todos: { task: string; isCompleted: boolean; id: number }[];
+  edit: (id: string | number) => void;
 }
 const tempTodos = [{ task: '', isCompleted: false, id: 0 }];
 const TodoList: React.FC<TodoListProps> = (props: TodoListProps) => {
@@ -15,11 +16,8 @@ const TodoList: React.FC<TodoListProps> = (props: TodoListProps) => {
       isCompleted: boolean;
       id: number;
     }[] = [];
-    const newPendingList: {
-      task: string;
-      isCompleted: boolean;
-      id: number;
-    }[] = [];
+    const newPendingList: { task: string; isCompleted: boolean; id: number }[] =
+      [];
     props.todos.forEach(item => {
       if (item.isCompleted) {
         newCompletedList.push(item);
@@ -36,6 +34,12 @@ const TodoList: React.FC<TodoListProps> = (props: TodoListProps) => {
         <div className={classes.caption}>{`Pending Task`}</div>
         {pendingTaskList.map(todo => (
           <div key={todo.id} className={classes.todoItem}>
+            <input
+              type='checkbox'
+              className={classes.checkbox}
+              checked={todo.isCompleted}
+              onChange={() => props.edit(todo.id)}
+            />
             {todo.task}
           </div>
         ))}
@@ -45,8 +49,13 @@ const TodoList: React.FC<TodoListProps> = (props: TodoListProps) => {
         {completedTaskList.map(todo => (
           <div
             key={todo.id}
-            className={`${classes.todoItem} ${classes.completed}`}
-          >
+            className={`${classes.todoItem} ${classes.completed}`}>
+            <input
+              type='checkbox'
+              className={classes.checkbox}
+              checked={todo.isCompleted}
+              onChange={() => props.edit(todo.id)}
+            />
             {todo.task}
           </div>
         ))}

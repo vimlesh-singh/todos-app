@@ -27,6 +27,25 @@ function App() {
       });
   };
 
+  const handleTodoEdit = (id: number | string) => {
+    const data = { id };
+    fetch('http://localhost:3005/api/todos', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(resData => {
+        setTodos(resData);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
   useEffect(() => {
     fetch('http://localhost:3005/api/todos')
       .then(resp => resp.json())
@@ -49,7 +68,7 @@ function App() {
         {isLoading ? (
           <div className='loading'>Loading ......</div>
         ) : (
-          <TodoList todos={todos} />
+          <TodoList todos={todos} edit={handleTodoEdit} />
         )}
       </main>
     </div>
